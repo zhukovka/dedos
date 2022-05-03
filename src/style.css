@@ -1,3 +1,8 @@
 body {
     margin: 0;
 }
+
+.dedo {
+    background-image: url('./dedo.webp');
+    background-size: contain;
+}

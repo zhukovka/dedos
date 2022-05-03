@@ -1,7 +1,12 @@
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-const rootElement = document.getElementById("root");
-// const root = createRoot(rootElement);
-import './style.css';
-import Dedo from './dedo.webp';
+import App from "./App";
 
-console.log(Dedo);
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+);

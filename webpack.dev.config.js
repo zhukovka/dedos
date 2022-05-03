@@ -6,18 +6,18 @@ module.exports = {
     mode: 'development',
     entry: {
         index: './src/index.js',
-        hot: 'webpack/hot/dev-server.js',
-        client: 'webpack-dev-server/client/index.js?hot=true&live-reload=true',
+        // hot: 'webpack/hot/dev-server.js',
+        // client: 'webpack-dev-server/client/index.js?hot=true&live-reload=true',
     },
     devtool: 'inline-source-map',
-    devServer: {
-        static: './dist',
-        hot: false,
-        client: false
-    },
+    // devServer: {
+    //     static: './dist',
+    //     hot: false,
+    //     client: false
+    // },
     plugins: [
-        new HtmlWebpackPlugin({title: "Dedo"}),
-        new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({title: "Dedo", template: "./src/index.html"}),
+        // new webpack.HotModuleReplacementPlugin(),
     ],
     output: {
         filename: '[name].bundle.js',
@@ -26,10 +26,16 @@ module.exports = {
         publicPath: '/',
     },
     optimization: {
-        runtimeChunk: 'single',
+        // runtimeChunk: 'single',
     },
     module: {
         rules: [{
+            test: /\.(js|jsx)$/,
+            exclude: /nodeModules/,
+            use: {
+                loader: 'babel-loader'
+            }
+        },{
             test: /\.css$/i,
             use: ['style-loader', 'css-loader'],
         }, {
