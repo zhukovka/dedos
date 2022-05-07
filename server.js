@@ -1,12 +1,12 @@
 const express = require('express');
-const path = require('path');
-
 const app = express();
+import {App} from './src/app.js';
 
 app.use(express.static('src'));
 
 app.get('*', (req, res) => {
     console.log(req.url);
+
     res.send(`
         <!DOCTYPE html>
         <html lang="en">
@@ -15,8 +15,11 @@ app.get('*', (req, res) => {
             <title>DEDOS 🖐</title>
         </head>
         <body>
-        <div id="root"></div> 
-        <script src="./app.js"></script>
+        <div id="root">
+            ${App()}
+        </div> 
+        <script type="module" src="./index.js"></script>
+        <script type="module" defer src="./app.js"></script>
         </body>
         </html>
     `);

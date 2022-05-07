@@ -17,7 +17,7 @@ function goTo() {
     loadScript(href);
 }
 
-document.getElementById('root').innerHTML = `
+export const App = () => `
     <div class="App">
             <h1 class='dedo'>DEDOS 🖐</h1>
             <ol>
@@ -29,4 +29,5 @@ document.getElementById('root').innerHTML = `
             </ol>
             <div id='suspense'></div>
         </div>
-`
+    `;
+
