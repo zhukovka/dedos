@@ -4,8 +4,7 @@ import {App} from './src/app.js';
 
 app.use(express.static('src'));
 
-app.get('*', (req, res) => {
-    console.log(req.url);
+app.get('/', (req, res) => {
 
     res.send(`
         <!DOCTYPE html>
@@ -15,11 +14,25 @@ app.get('*', (req, res) => {
             <title>DEDOS 🖐</title>
         </head>
         <body>
-        <div id="root">
-            ${App()}
-        </div> 
-        <script type="module" src="./index.js"></script>
-        <script type="module" defer src="./app.js"></script>
+            <h1 class='dedo'>DEDOS 👍</h1>
+            <ol>
+                <li><a href="/polegar">Polegar</a></li>
+            </ol>
+        </body>
+        </html>
+    `);
+})
+
+app.get('/polegar', function (req, res) {
+    res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Polegar 👍</title>
+        </head>
+        <body>
+            <h1 class='dedo'>Polegar 👍</h1>
         </body>
         </html>
     `);
