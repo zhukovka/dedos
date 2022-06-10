@@ -9,7 +9,6 @@ function indicador(){
 function goTo() {
     event.preventDefault();
     const href = event.currentTarget.getAttribute('href');
-    console.log(href);
     history.pushState({}, document.title, href);
     document.getElementById('pages').innerHTML = window[href.substr(1)]();
 }
