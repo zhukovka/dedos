@@ -1,20 +1,9 @@
-function loadScript(href) {
-    if(href === '/'){
-        return;
-    }
-    import(`${href}.js`)
-        .then(({default: dedo}) => {
-            // Do something with the module.
-            document.getElementById('suspense').innerHTML = dedo();
-        });
-}
-
 function goTo() {
     event.preventDefault();
     const href = event.currentTarget.getAttribute('href');
     console.log(href);
     history.pushState({}, document.title, href);
-    loadScript(href);
+    document.getElementById('pages').innerHTML = ''
 }
 
 export const App = () => `
@@ -27,7 +16,7 @@ export const App = () => `
             <li><a href="/anelar" onclick="goTo()">Anelar</a></li>
             <li><a href="/minimo" onclick="goTo()">Dedo mínimo</a></li>
             </ol>
-            <div id='suspense'></div>
+            <div id='pages'></div>
         </div>
     `;
 

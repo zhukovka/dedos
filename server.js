@@ -1,12 +1,8 @@
 const express = require('express');
 const app = express();
-import {App} from './src/app.js';
-
 app.use(express.static('src'));
 
 app.get('*', (req, res) => {
-    console.log(req.url);
-
     res.send(`
         <!DOCTYPE html>
         <html lang="en">
@@ -16,10 +12,9 @@ app.get('*', (req, res) => {
         </head>
         <body>
         <div id="root">
-            ${App()}
+        <!--   The Content Will Be Here -->
         </div> 
-        <script type="module" src="./index.js"></script>
-        <script type="module" defer src="./app.js"></script>
+        <script src="./index.js"></script>
         </body>
         </html>
     `);
