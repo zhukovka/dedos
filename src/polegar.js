@@ -1,4 +1,4 @@
-function Polegar(){
+export function Polegar(){
     return (`
     <h1>Polegar 👍</h1>
     `)

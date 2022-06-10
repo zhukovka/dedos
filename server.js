@@ -1,4 +1,5 @@
 const express = require('express');
+const {App} = require("./src/app");
 const app = express();
 app.use(express.static('src'));
 
@@ -12,9 +13,9 @@ app.get('*', (req, res) => {
         </head>
         <body>
         <div id="root">
-        <!--   The Content Will Be Here -->
+            ${App()}
         </div> 
-        <script src="./index.js"></script>
+        <script type="module" src="./index.js"></script>
         </body>
         </html>
     `);
