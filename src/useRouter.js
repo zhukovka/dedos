@@ -1,15 +1,11 @@
-import {Indicador} from "./indicador.js";
-import {Polegar} from "./polegar.js";
-import {Medio} from "./medio.js";
-
 export function getPageContent(route) {
     switch (route) {
         case '/indicador':
-            return Indicador();
+            return import('./indicador.js');
         case '/polegar':
-            return Polegar();
+            return import('./polegar.js');
         case '/medio':
-            return Medio();
+            return import('./medio.js');
         default:
             return ''
     }
