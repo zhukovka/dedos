@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-import {App} from './src/app.js';
 
 app.use(express.static('src'));
 
