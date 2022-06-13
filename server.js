@@ -17,6 +17,7 @@ app.get('*', (req, res) => {
             ${App({pathname})}
         </div> 
         <script type="module" src="./index.js"></script>
+        <script type="module" defer src=".${pathname}.js"></script>
         </body>
         </html>
     `);
