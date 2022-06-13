@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     `);
 })
 
-app.get('/polegar', function (req, res) {
+app.get('/polegar', (req, res) => {
     res.send(`
         <!DOCTYPE html>
         <html lang="en">
