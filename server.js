@@ -4,7 +4,6 @@ const app = express();
 app.use(express.static('src'));
 
 app.get('/', (req, res) => {
-
     res.send(`
         <!DOCTYPE html>
         <html lang="en">
