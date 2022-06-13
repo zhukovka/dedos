@@ -1,16 +1,14 @@
-import {App} from "./app.js";
-import {useRouter} from "./useRouter";
+import {useRouter} from "./useRouter.js";
 
-function goTo() {
-    event.preventDefault();
-    const href = event.currentTarget.getAttribute('href');
-    history.pushState({}, document.title, href);
-    useRouter(location.pathname);
+function hydrate() {
+    //add event listeners
+    function goTo() {
+        event.preventDefault();
+        const href = event.currentTarget.getAttribute('href');
+        history.pushState({}, document.title, href);
+        useRouter(location.pathname);
+    }
+    window.goTo = goTo;
 }
 
-function render() {
-    document.getElementById('root').innerHTML = App();
-}
-
-render();
-useRouter(location.pathname);
+hydrate();

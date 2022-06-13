@@ -4,6 +4,7 @@ const app = express();
 app.use(express.static('src'));
 
 app.get('*', (req, res) => {
+    let pathname = req.url;
     res.send(`
         <!DOCTYPE html>
         <html lang="en">
@@ -13,7 +14,7 @@ app.get('*', (req, res) => {
         </head>
         <body>
         <div id="root">
-            ${App()}
+            ${App({pathname})}
         </div> 
         <script type="module" src="./index.js"></script>
         </body>
