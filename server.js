@@ -12,34 +12,15 @@ const app = express();
 
 app.use(express.static('dist'));
 
-// if (process.env.NODE_ENV !== 'production') {
-//     console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`)
-//     const config = require('./webpack.config.js');
-//     const compiler = webpack(config);
-// // Tell express to use the webpack-dev-middleware and use the webpack.config.js
-// // configuration file as a base.
-//     app.use(
-//         webpackDevMiddleware(compiler, {
-//             publicPath: config.output.publicPath,
-//         })
-//     );
-// }
-const nodeStats = path.resolve(
-    __dirname,
-    './dist/node/loadable-stats.json',
-)
-
 const webStats = path.resolve(
     __dirname,
     './dist/web/loadable-stats.json',
 )
 app.get('*', (req, res) => {
-    const nodeExtractor = new ChunkExtractor({ statsFile: nodeStats })
-    // const { default: App } = nodeExtractor.requireEntrypoint()
-
+    let url = req.originalUrl;
     const webExtractor = new ChunkExtractor({ statsFile: webStats })
     const jsx = webExtractor.collectChunks(<App />)
-    const html = renderToString(<StrictMode><StaticRouter>{jsx}</StaticRouter></StrictMode>);
+    const html = renderToString(<StrictMode><StaticRouter location={url}>{jsx}</StaticRouter></StrictMode>);
 
     res.set('content-type', 'text/html')
     res.send(`
