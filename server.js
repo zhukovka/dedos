@@ -1,9 +1,11 @@
 import path from 'path'
 import express from 'express'
-import React from 'react'
+import React, {StrictMode} from 'react'
 import { renderToString } from 'react-dom/server'
 import { ChunkExtractor } from '@loadable/server'
 import App from "./src/App";
+import { StaticRouter } from "react-router-dom/server";
+
 const webpackDevMiddleware = require('webpack-dev-middleware');
 
 const app = express();
@@ -37,8 +39,7 @@ app.get('*', (req, res) => {
 
     const webExtractor = new ChunkExtractor({ statsFile: webStats })
     const jsx = webExtractor.collectChunks(<App />)
-
-    const html = renderToString(jsx)
+    const html = renderToString(<StrictMode><StaticRouter>{jsx}</StaticRouter></StrictMode>);
 
     res.set('content-type', 'text/html')
     res.send(`
