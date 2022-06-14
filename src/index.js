@@ -1,12 +1,9 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import 'core-js'
+import React from 'react'
+import { hydrate } from 'react-dom'
+import { loadableReady } from '@loadable/component'
 import App from "./App";
 
-const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
-
-root.render(
-    <StrictMode>
-        <App />
-    </StrictMode>
-);
+loadableReady(() => {
+    hydrate(<App />, document.getElementById('root'))
+})

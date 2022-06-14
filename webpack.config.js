@@ -1,26 +1,43 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
-module.exports = {
-    mode: 'production',
-    entry: {
-        index: './src/index.js'
-    },
-    plugins: [
-        new HtmlWebpackPlugin({title: "Dedo"})
-    ],
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        clean: true,
-    },
+const DIST_PATH = path.resolve(__dirname, 'dist')
+const production = process.env.NODE_ENV === 'production'
+const development = !production;
+
+const getConfig = target => ({
+    name: target,
+    mode: development ? 'development' : 'production',
+    target,
+    entry: `./src/index.js`,
     module: {
-        rules: [{
-            test: /\.css$/i,
-            use: ['style-loader', 'css-loader'],
-        }, {
-            test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
-            type: 'asset/resource',
-        }]
-    }
-};
+        rules: [
+            {
+                test: /\.js?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        caller: { target },
+                    },
+                },
+            },
+        ],
+    },
+    optimization: {
+        moduleIds: 'named',
+        chunkIds: 'named',
+    },
+    externals:
+        target === 'node' ? ['@loadable/component', nodeExternals()] : undefined,
+    output: {
+        path: path.join(DIST_PATH, target),
+        filename: production ? '[name].js' : '[name].js',
+        publicPath: `/${target}/`,
+        libraryTarget: target === 'node' ? 'commonjs2' : undefined,
+    },
+    plugins: [new LoadablePlugin()],
+})
+
+module.exports = [getConfig('web'), getConfig('node')]
